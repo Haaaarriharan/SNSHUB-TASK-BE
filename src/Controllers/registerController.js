@@ -1,7 +1,7 @@
 const Register = require("../Models/registerModel");
 const bcrypt = require("bcryptjs");
 
-// SignUp Function
+// SIGNUP FUNCTION
 exports.registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -20,7 +20,7 @@ exports.registerUser = async (req, res) => {
     await registerUser.save();
     res.json({
       data: registerUser,
-      mssage: "User Register Successfully"
+      mssage: "User Register Successfully",
     });
   } catch (error) {
     res.status(500).json({
@@ -28,4 +28,3 @@ exports.registerUser = async (req, res) => {
     });
   }
 };
-
