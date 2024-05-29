@@ -29,7 +29,7 @@ exports.getEmployeesByUserId = async (req, res) => {
       .status(200)
       .json({ data: employees, message: "Employees retrieved successfully" });
   } catch (error) {
-    console.error(error);
+    console.error("please", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };

@@ -5,6 +5,7 @@ require("dotenv").config();
 const app = express();
 
 const cors = require("cors");
+const logger = require("./src/Middleware/logger");
 
 //MONGODB CONNECTION
 mongoose
@@ -16,7 +17,7 @@ mongoose
 app.use(express.json()); //PARSE INCOMMING JSON REQUEST
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-
+// app.use(logger());
 //ROUTE INITIALIZATION
 app.use("/api", Routes);
 
