@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const employeeSchema = new Schema(
+const userSchema = new Schema(
   {
     businessName: { type: String, required: true },
     email: { type: String, required: true },
@@ -21,11 +21,12 @@ const employeeSchema = new Schema(
       ref: "Source",
       required: true,
     },
+    isActive: { type: Boolean, default: true },
     createdAt: { type: Number, default: Date.now() },
     updatedAt: { type: Number, default: Date.now() },
   },
   { versionKey: false }
 );
-const Employee = mongoose.model("Employee", employeeSchema);
+const User = mongoose.model("User", userSchema);
 
-module.exports = Employee;
+module.exports = User;

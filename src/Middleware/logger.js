@@ -6,7 +6,7 @@ const logger = (req, res, next) => {
   const url = req.originalUrl;
   const ip = req.ip;
 
-  console.log(`[${currentTime}] ${method} ${url} - ${ip}`);
+  console.log(`[${currentTime}] ${method} ${url} - ${res.statusCode} - ${ip}`);
 
   // Proceed to the next middleware function or route handler
   next();

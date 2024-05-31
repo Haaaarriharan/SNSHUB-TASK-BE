@@ -57,8 +57,8 @@ exports.loginUser = async (req, res) => {
     console.log("token", token);
 
     res.json({
-      data: "registerUser",
-      mssage: "User Register Successfully",
+      data: checkUser,
+      mssage: "User looged In Successfully",
     });
   } catch (error) {
     console.log("error", error);
