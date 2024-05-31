@@ -17,7 +17,7 @@ mongoose
 app.use(express.json()); //PARSE INCOMMING JSON REQUEST
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-// app.use(logger());
+app.use(logger);
 //ROUTE INITIALIZATION
 app.use("/api", Routes);
 

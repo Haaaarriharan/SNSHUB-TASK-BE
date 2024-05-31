@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const registerSchema = new Schema(
@@ -15,6 +15,6 @@ const registerSchema = new Schema(
   { versionKey: false }
 );
 
-const Register = mongoose.model('Register', registerSchema);
+const Register = mongoose.model("Register", registerSchema);
 
 module.exports = Register;

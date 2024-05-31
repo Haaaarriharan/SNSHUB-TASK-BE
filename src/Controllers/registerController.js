@@ -1,5 +1,8 @@
 const Register = require("../Models/registerModel");
 const bcrypt = require("bcryptjs");
+const STATUS_CODE = require("../Utils/statusCode");
+const comparePassword = require("../Utils/utils");
+let jwt = require("jsonwebtoken");
 
 // SIGNUP FUNCTION
 exports.registerUser = async (req, res) => {
@@ -7,7 +10,7 @@ exports.registerUser = async (req, res) => {
     const { name, email, password } = req.body;
     const checkUser = await Register.findOne({ email });
     if (checkUser) {
-      return res.status(401).json({
+      return res.status(STATUS_CODE.notFound).json({
         message: "Email Already exists",
       });
     }
@@ -23,6 +26,42 @@ exports.registerUser = async (req, res) => {
       mssage: "User Register Successfully",
     });
   } catch (error) {
+    res.status(500).json({
+      message: "Not registered",
+    });
+  }
+};
+
+exports.loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const checkUser = await Register.findOne({ email });
+    if (!checkUser) {
+      return res.status(STATUS_CODE.notFound).json({
+        message: "Email not found...",
+      });
+    }
+
+    let verifyPassword = await comparePassword(password, checkUser?.password);
+
+    if (!verifyPassword) {
+      return res.status(STATUS_CODE.notFound).json({
+        message: "Incorrect password...",
+      });
+    }
+
+    const token = jwt.sign({ userId: checkUser?.id }, "your-secret-key", {
+      expiresIn: "1h",
+    });
+
+    console.log("token", token);
+
+    res.json({
+      data: "registerUser",
+      mssage: "User Register Successfully",
+    });
+  } catch (error) {
+    console.log("error", error);
     res.status(500).json({
       message: "Not registered",
     });
