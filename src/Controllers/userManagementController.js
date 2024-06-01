@@ -43,9 +43,7 @@ exports.updateUserData = async (req, res) => {
 exports.removeUserData = async (req, res) => {
   try {
     const userId = req.params.id;
-    const updates = {
-      isActive: false,
-    };
+    const updates = req.body;
     const updatedUser = await User.findByIdAndUpdate(userId, updates, {
       new: true,
     });
@@ -63,15 +61,17 @@ exports.removeUserData = async (req, res) => {
 };
 //EMPLOYEE LISTING
 exports.getAllUserDatas = async (req, res) => {
-  const { skip = 0, limit = 10 } = req.query;
+  // const { skip = 0, limit = 10 } = req.query;
   try {
+    const updates = req.body;
+    console.log("datas ", updates, req.query);
     // GET /user/listall?skip=10&limit=5
-    const employees = await User.find()
+    const employees = await User.find(updates)
       .populate("userTypeId")
       .populate("productId")
       .populate("sourceId")
-      .skip(parseInt(skip)) // Convert skip to integer
-      .limit(parseInt(limit)) // Convert limit to integer
+      // .skip(parseInt(skip)) // Convert skip to integer
+      // .limit(parseInt(limit)) // Convert limit to integer
       .exec();
     res
       .status(200)

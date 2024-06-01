@@ -23,7 +23,7 @@ exports.registerUser = async (req, res) => {
     await registerUser.save();
     res.json({
       data: registerUser,
-      mssage: "User Register Successfully",
+      message: "User Register Successfully",
     });
   } catch (error) {
     res.status(500).json({
@@ -58,7 +58,7 @@ exports.loginUser = async (req, res) => {
 
     res.json({
       data: checkUser,
-      mssage: "User looged In Successfully",
+      message: "User loged In Successfully",
     });
   } catch (error) {
     console.log("error", error);
