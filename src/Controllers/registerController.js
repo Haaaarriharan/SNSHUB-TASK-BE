@@ -52,7 +52,7 @@ exports.loginUser = async (req, res) => {
     }
     // creating autherization token with the user and use it with the header
     const token = jwt.sign({ userId: checkUser?.id }, "your-secret-key", {
-      expiresIn: "10s",
+      expiresIn: "1h",
     });
 
     console.log("token", token);
