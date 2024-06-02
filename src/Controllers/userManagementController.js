@@ -65,13 +65,13 @@ exports.getAllUserDatas = async (req, res) => {
   try {
     const updates = req.body;
     console.log("datas ", updates, req.query);
+
     // GET /user/listall?skip=10&limit=5
     const employees = await User.find(updates)
+      .sort({ createdAt: "desc" })
       .populate("userTypeId")
       .populate("productId")
       .populate("sourceId")
-      // .skip(parseInt(skip)) // Convert skip to integer
-      // .limit(parseInt(limit)) // Convert limit to integer
       .exec();
     res
       .status(200)
