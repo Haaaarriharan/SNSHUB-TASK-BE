@@ -3,7 +3,7 @@ const Source = require("../Models/source");
 const User = require("../Models/userManagementModel");
 const UserType = require("../Models/userType");
 
-//EMPLOYEE CREATION
+//USER CREATION
 exports.createUser = async (req, res) => {
   try {
     const employees = new User(req.body);
@@ -39,7 +39,7 @@ exports.updateUserData = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
-
+// REMOVE USER
 exports.removeUserData = async (req, res) => {
   try {
     const userId = req.params.id;
@@ -59,13 +59,11 @@ exports.removeUserData = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
-//EMPLOYEE LISTING
+//USER LISTING
 exports.getAllUserDatas = async (req, res) => {
   // const { skip = 0, limit = 10 } = req.query;
   try {
     const updates = req.body;
-    console.log("datas ", updates, req.query);
-
     // GET /user/listall?skip=10&limit=5
     const employees = await User.find(updates)
       .sort({ createdAt: "desc" })
@@ -81,7 +79,7 @@ exports.getAllUserDatas = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
-
+// LIST USER TYPE
 exports.getAllUserType = async (req, res) => {
   try {
     const employees = await UserType.find({});
@@ -93,6 +91,7 @@ exports.getAllUserType = async (req, res) => {
   }
 };
 
+// LIST PRODUCT
 exports.getAllProduct = async (req, res) => {
   try {
     const employees = await Product.find({});
@@ -104,6 +103,7 @@ exports.getAllProduct = async (req, res) => {
   }
 };
 
+//LIST SOURCE
 exports.getAllSource = async (req, res) => {
   try {
     const employees = await Source.find({});

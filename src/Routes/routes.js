@@ -4,11 +4,11 @@ const RegisterController = require("../Controllers/registerController");
 const userManagementController = require("../Controllers/userManagementController");
 const verifyToken = require("../Middleware/jwtauthentication");
 
-//REGISTER ROUTES
+//REGISTER/LOGIN ROUTES
 Router.route("/register").post(RegisterController.registerUser);
 Router.route("/login").post(RegisterController.loginUser);
 
-//EMPLOYEE ROUTES
+//USERMANAGEMENT ROUTES
 Router.route("/user/create").post(
   verifyToken,
   userManagementController.createUser
