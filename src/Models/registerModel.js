@@ -9,6 +9,12 @@ const registerSchema = new Schema(
       unique: true,
     },
     password: String,
+    phoneNumber: String,
+    userTypeId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "UserType",
+      required: true,
+    },
     createdAt: { type: Number, default: Date.now },
     updatedAt: { type: Number, default: Date.now },
   },

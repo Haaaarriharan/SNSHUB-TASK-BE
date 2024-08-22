@@ -9,33 +9,12 @@ Router.route("/register").post(RegisterController.registerUser);
 Router.route("/login").post(RegisterController.loginUser);
 
 //USERMANAGEMENT ROUTES
-Router.route("/user/create").post(
-  verifyToken,
-  userManagementController.createUser
-);
-Router.route("/user/update/:id").patch(
-  verifyToken,
-  userManagementController.updateUserData
-);
-Router.route("/user/remove/:id").patch(
-  verifyToken,
-  userManagementController.removeUserData
-);
-Router.route("/user/listall").post(
-  verifyToken,
-  userManagementController.getAllUserDatas
-);
-Router.route("/usertype/list").get(
-  verifyToken,
-  userManagementController.getAllUserType
-);
-Router.route("/product/list").get(
-  verifyToken,
-  userManagementController.getAllProduct
-);
-Router.route("/source/list").get(
-  verifyToken,
-  userManagementController.getAllSource
-);
+Router.route("/user/create").post(userManagementController.createUser);
+Router.route("/user/update/:id").patch(userManagementController.updateUserData);
+Router.route("/user/remove/:id").patch(userManagementController.removeUserData);
+Router.route("/user/listall").post(userManagementController.getAllUserDatas);
+Router.route("/usertype/list").get(userManagementController.getAllUserType);
+Router.route("/product/list").get(userManagementController.getAllProduct);
+Router.route("/source/list").get(userManagementController.getAllSource);
 
 module.exports = Router;

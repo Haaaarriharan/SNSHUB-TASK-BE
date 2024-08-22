@@ -7,7 +7,7 @@ let jwt = require("jsonwebtoken");
 // SIGNUP FUNCTION
 exports.registerUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, phoneNumber, userTypeId } = req.body;
     const checkUser = await Register.findOne({ email });
     if (checkUser) {
       return res.status(STATUS_CODE.notFound).json({
@@ -15,17 +15,22 @@ exports.registerUser = async (req, res) => {
       });
     }
     const pswrd = await bcrypt.hash(password, 10);
-    const registerUser = new Register({
+    let payload = {
       name,
       email,
       password: pswrd,
-    });
+      phoneNumber,
+      userTypeId,
+    };
+    console.log("dksndjnsjnd", payload);
+    const registerUser = new Register(payload);
     await registerUser.save();
     res.json({
       data: registerUser,
       message: "User Register Successfully",
     });
   } catch (error) {
+    console.log("error", error);
     res.status(500).json({
       message: "Not registered",
     });

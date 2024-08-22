@@ -1,4 +1,5 @@
 const Product = require("../Models/product");
+const Register = require("../Models/registerModel");
 const Source = require("../Models/source");
 const User = require("../Models/userManagementModel");
 const UserType = require("../Models/userType");
@@ -64,13 +65,11 @@ exports.getAllUserDatas = async (req, res) => {
   // const { skip = 0, limit = 10 } = req.query;
   try {
     const updates = req.body;
+
     // GET /user/listall?skip=10&limit=5
-    const employees = await User.find(updates)
-      .sort({ createdAt: "desc" })
-      .populate("userTypeId")
-      .populate("productId")
-      .populate("sourceId")
-      .exec();
+    if (Object.keys(updates.where).length == 0) delete updates?.where;
+
+    const employees = await Register.find(updates);
     res
       .status(200)
       .json({ data: employees, message: "User retrieved successfully" });
