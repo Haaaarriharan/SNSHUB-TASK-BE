@@ -49,6 +49,7 @@ exports.loginUser = async (req, res) => {
     }
 
     let verifyPassword = await comparePassword(password, checkUser?.password);
+    console.log("i am the best person", verifyPassword);
 
     if (!verifyPassword) {
       return res.status(STATUS_CODE.notFound).json({
@@ -57,7 +58,7 @@ exports.loginUser = async (req, res) => {
     }
     // creating autherization token with the user and use it with the header
     const token = jwt.sign({ userId: checkUser?.id }, "your-secret-key", {
-      expiresIn: "1h",
+      expiresIn: "10h",
     });
 
     console.log("token", token);
@@ -66,6 +67,44 @@ exports.loginUser = async (req, res) => {
       data: checkUser,
       token,
       message: "User loged In Successfully",
+    });
+  } catch (error) {
+    console.log("error", error);
+    res.status(500).json({
+      message: "Not registered",
+    });
+  }
+};
+
+exports.ForgotPassword = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const checkUser = await Register.findOne({ email });
+    if (!checkUser) {
+      return res.status(STATUS_CODE.notFound).json({
+        message: "Email not found...",
+      });
+    }
+
+    const pswrd = await bcrypt.hash(password, 10);
+    let final_payload = {
+      email,
+      password: pswrd,
+    };
+
+    console.log("dsdnkdndn" , final_payload)
+
+    updatePassword = await Register.findByIdAndUpdate(
+      checkUser?.id,
+      final_payload,
+      {
+        new: true,
+      }
+    );
+
+    res.json({
+      data: checkUser,
+      message: "Password Updated Succesfully",
     });
   } catch (error) {
     console.log("error", error);

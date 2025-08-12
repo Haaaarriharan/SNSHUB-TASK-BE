@@ -7,6 +7,7 @@ const verifyToken = require("../Middleware/jwtauthentication");
 //REGISTER/LOGIN ROUTES
 Router.route("/register").post(RegisterController.registerUser);
 Router.route("/login").post(RegisterController.loginUser);
+Router.route("/forgot_password").post(RegisterController.ForgotPassword);
 
 //USERMANAGEMENT ROUTES
 Router.route("/user/create").post(userManagementController.createUser);
